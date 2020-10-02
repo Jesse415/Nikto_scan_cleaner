@@ -12,19 +12,24 @@ def filter_line(g):
     cgi = 'No CGI'
     vrwj = 'valid response with junk' # May cause false positives
     allow = 'Allowed HTTP Methods'
+    waf = 'which may suggest a WAF'
+    shell = 'shellshock'
+    osv637 = 'OSVDB-637'
+    osv578 = 'OSVDB-578'
 
     path="CLEAN.csv"
     output=open(path, 'w')
     output.write('IP' + ',' + 'Hostname' + ',' + 'Anti-clickjacking' + ',' + 'X-XSS-Protection' + ',' +
                  'No CGI Directories found' + ',' + 'valid response with junk HTTP' + ',' +
-                 'Allowed HTTP Methods' + '\n')
+                 'Allowed HTTP Methods' + ',' + 'which may suggest a WAF' + ',' + 'shellshock' + ',' + 'OSVDB-637' + ',' + 'OSVDB-578' +
+                 '\n')
 
     # Each "row" is equal to one Nikto scan
     # If Nikto failed row will be < 3
     for row in range(len(g)):
         if len(g[row])>3:
             strs = g[row]
-            flags = ['0','0','0','0','0']   # Reset flags after every scan
+            flags = ['0','0','0','0','0','0','0','0','0']   # Reset flags after every scan
             for scan in range(len(strs)):
                 if subs in strs[scan]:
                     tmp = strs[scan].split()[3] + ','
@@ -45,6 +50,14 @@ def filter_line(g):
                 flags[3] = '1'
             if [i for i in strs if allow in i]:
                 flags[4] = '1'
+            if [i for i in strs if waf in i]:
+                flags[5] = '1'
+            if [i for i in strs if shell in i]:
+                flags[6] = '1'
+            if [i for i in strs if osv637 in i]:
+                flags[7] = '1'
+            if [i for i in strs if osv578 in i]:
+                flags[8] = '1'
 
             # If the scan Failed or no web server found, skip write to file
             if no not in strs[scan]:
@@ -77,13 +90,19 @@ def create_graph(lists):
     filter_line(graph)
 
 def main():
+    print(' _______  .__ __      __             _________                      _________ .__\n'
+          ' \      \ |__|  | ___/  |_  ____    /   _____/ ____  _____    ____   \_   ___ \|  |   ____  _____    ____   ___________\n'
+          ' /   |   \|  |  |/ /\   __\/  _ \   \_____  \_/ ___\ \__  \  /    \  /    \  \/|  | _/ __ \ \__  \  /    \_/ __ \_  __ \ \n'
+          '/    |    \  |    <  |  | (  <_> )  /        \  \___  / __ \|   |  \ \     \___|  |_\  ___/  / __ \|   |  \  ___/|  | \/\n'
+          '\____|__  /__|__|_ \ |__|  \____/  /_______  /\___  //____  /___|  /  \______  /____/\___  >/____  /___|  /\___  >__|\n'
+          '        \/        \/                       \/     \/      \/     \/          \/          \/      \/     \/     \/       \n')
     items = []
     array_lines = []
     header = ('IP,Hostname,Anti-clickjacking,X-XSS-Protection\n')
 
     try:
-        #f=open("testInput.txt", "r")
-        with open('testInput.txt') as f:
+        #f=open("all_nikto_outputs.txt", "r")
+        with open('finalMalicious.txt') as f:
             # Read in Everyline
             for line in f:
                 items.append(line.replace('\n',''))
