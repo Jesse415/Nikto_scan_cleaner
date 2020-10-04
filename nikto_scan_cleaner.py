@@ -17,12 +17,13 @@ def filter_line(g):
     osv637 = 'OSVDB-637'
     osv578 = 'OSVDB-578'
 
-    path="CLEAN.csv"
+    path = input("Enter desired .csv file name: ")
+    path = (path + '.csv')
     output=open(path, 'w')
     output.write('IP' + ',' + 'Hostname' + ',' + 'Anti-clickjacking' + ',' + 'X-XSS-Protection' + ',' +
                  'No CGI Directories found' + ',' + 'valid response with junk HTTP' + ',' +
-                 'Allowed HTTP Methods' + ',' + 'which may suggest a WAF' + ',' + 'shellshock' + ',' + 'OSVDB-637' + ',' + 'OSVDB-578' +
-                 '\n')
+                 'Allowed HTTP Methods' + ',' + 'which may suggest a WAF' + ',' + 'shellshock' + ',' +
+                 'OSVDB-637' + ',' + 'OSVDB-578' + '\n')
 
     # Each "row" is equal to one Nikto scan
     # If Nikto failed row will be < 3
@@ -100,9 +101,12 @@ def main():
     array_lines = []
     header = ('IP,Hostname,Anti-clickjacking,X-XSS-Protection\n')
 
+    print ("Note: Make sure first line in file starts with '- Nikto'.")
+    file_name = input("Please enter file name: ")
+
     try:
         #f=open("all_nikto_outputs.txt", "r")
-        with open('finalMalicious.txt') as f:
+        with open(file_name) as f:
             # Read in Everyline
             for line in f:
                 items.append(line.replace('\n',''))

@@ -1,6 +1,0 @@
-IP,Hostname,Anti-clickjacking,X-XSS-Protection,No CGI Directories found,valid response with junk HTTP,Allowed HTTP Methods,which may suggest a WAF,shellshock,OSVDB-637,OSVDB-578
-3.89.97.90,www.icyte.com,1,1,1,0,0,0,0,0,0
-89.42.39.89,infosantioana.hi2.ro,1,1,0,1,1,0,0,0,0
-192.185.198.1,basicpolymers.com,1,1,1,0,1,0,0,0,0
-221.121.152.43,www.ozziedeals.com.au,1,1,1,0,0,0,0,0,0
-98.12.216.90,waynedalenews.com,1,0,1,0,0,0,0,0,0
