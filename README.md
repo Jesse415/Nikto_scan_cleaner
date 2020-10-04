@@ -12,9 +12,9 @@ to read in the name of the file you wish to parse. NOTE: Make sure
 the first line is '- Nikto' as this is what separates each scan.
 
 ## Output
-The output file (can be changed) is noted on line 20 'CLEAN.csv'.
+User inputs the desired name for output. No need to add .csv as its automatically added.
 
-This file is currently set as:
+The file is currently set as:
 IP,Hostname,Anti-clickjacking,X-XSS-Protection,No CGI Directories found,valid response with junk HTTP,Allowed HTTP Methods,which may suggest a WAF,shellshock,OSVDB-637,OSVDB-578
 
 Every value after Hostname is a binary value that is default set to
